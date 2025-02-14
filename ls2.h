@@ -8,10 +8,13 @@
 #define INDENT "    "
 
 // TODO: Any global variables go below
-int thisIsGlobal = 10;  // delete before submission
+//int thisIsGlobal = 10;  // delete before submission
 
 // TODO: Function declarations go below
-void example(int*); // delete before submission
+//void example(int*); // delete before submission
+void parseMode(int argc, char *argv[]);
+void mode1();
+void mode2();
 
 
 #endif
