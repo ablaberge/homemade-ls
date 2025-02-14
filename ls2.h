@@ -13,7 +13,7 @@
 // TODO: Function declarations go below
 //void example(int*); // delete before submission
 void parseMode(int argc, char *argv[]);
-void mode1();
+void mode1(const char *path, int depth);
 void mode2();
 
 
