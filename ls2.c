@@ -6,8 +6,6 @@
 #include <unistd.h>
 #include "ls2.h"
 
-
-
 int parseMode(int argc)
 {
     if (argc == 1)
@@ -116,15 +114,13 @@ int mode2(char *path, stack_t *s, int depth, char *pattern)
             perror("stat failed");
             free(fullPath);
             return -1;
-        } // Get file info
+        }
 
-
-        if (S_ISREG(fileInfo.st_mode))
+        if (S_ISREG(fileInfo.st_mode)) // Regular shemgular old file
         {
-            if (strcmp(pattern, entry->d_name) == 0)
+            if (strcmp(pattern, entry->d_name) == 0) // See if current file matches the pattern
             {
                 char sizeStr[30];
-                //sprintf(sizeStr, " (%ld bytes)\n", fileInfo.st_size);
                 sprintf(sizeStr, " (%ld bytes)", fileInfo.st_size);
                 char *temp = malloc(strlen(entry->d_name) + 25 + strlen(sizeStr) + 2);
                 if (temp == NULL)
@@ -133,7 +129,7 @@ int mode2(char *path, stack_t *s, int depth, char *pattern)
                     free(fullPath);
                     return -1;
                 }
-                strcpy(temp, "");
+                strcpy(temp, ""); // Initialize so strcat works
                 for (int i = 0; i < depth; i++)
                 {
                     strcat(temp, "    ");
@@ -142,25 +138,22 @@ int mode2(char *path, stack_t *s, int depth, char *pattern)
                 strcat(temp, sizeStr);
 
                 push(s, temp);
-                matchFound = 1;
-            }
-            else {
-                return 0;
+                matchFound = 1; // This directory has a match!
             }
         }
-        else if (S_ISDIR(fileInfo.st_mode))
+        else if (S_ISDIR(fileInfo.st_mode)) // We're looking at a directory
         {
-            
-            if (mode2(fullPath, s, depth + 1, pattern))
+
+            if (mode2(fullPath, s, depth + 1, pattern)) // Check if any files contained in dir match pattern
             {
-                matchFound = 1;
+                matchFound = 1; // We might be in a subdirectory, so we still need to set this
                 char *temp = malloc(strlen(entry->d_name) + (depth * 4) + 20);
                 if (temp == NULL)
                 {
                     perror("malloc failed :(");
                     return -1;
                 }
-            
+
                 strcpy(temp, "");
                 for (int i = 0; i < depth; i++)
                 {
@@ -173,7 +166,7 @@ int mode2(char *path, stack_t *s, int depth, char *pattern)
                 push(s, temp);
             }
         }
-        free(fullPath);
+        free(fullPath); // No memory leaks here
     }
 
     closedir(dir);

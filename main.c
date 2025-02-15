@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
 	{
 		pathname = (char *)malloc(strlen(argv[1]) + 1);
 		strcpy(pathname, argv[1]);
-		//char *pattern = (char *)malloc(strlen(argv[2])+1);
 		mode2(pathname, s, 0, argv[2]);
 	}
 
