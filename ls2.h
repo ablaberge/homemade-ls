@@ -12,9 +12,9 @@
 
 // TODO: Function declarations go below
 //void example(int*); // delete before submission
-void parseMode(int argc, char *argv[]);
-void mode1(const char *path, int depth);
-void mode2();
+int parseMode(int argc);
+void mode1(char *path, int depth);
+int mode2(char *path, stack_t *s, int depth, char *pattern);
 
 
 #endif
