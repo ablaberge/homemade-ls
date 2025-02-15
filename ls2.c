@@ -124,7 +124,8 @@ int mode2(char *path, stack_t *s, int depth, char *pattern)
             if (strcmp(pattern, entry->d_name) == 0)
             {
                 char sizeStr[30];
-                sprintf(sizeStr, " (%ld bytes)\n", fileInfo.st_size);
+                //sprintf(sizeStr, " (%ld bytes)\n", fileInfo.st_size);
+                sprintf(sizeStr, " (%ld bytes)", fileInfo.st_size);
                 char *temp = malloc(strlen(entry->d_name) + 25 + strlen(sizeStr) + 2);
                 if (temp == NULL)
                 {
@@ -167,7 +168,7 @@ int mode2(char *path, stack_t *s, int depth, char *pattern)
                 }
 
                 strcat(temp, entry->d_name);
-                strcat(temp, "/ (directory)\n");
+                strcat(temp, "/ (directory)");
 
                 push(s, temp);
             }
